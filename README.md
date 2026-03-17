@@ -1,5 +1,5 @@
 [README.md](https://github.com/user-attachments/files/26063817/README.md)
-# 🛵 GigShield — AI-Powered Parametric Income Insurance for Food Delivery Partners
+# GigShield — AI-Powered Parametric Income Insurance for Food Delivery Partners
 
 > **Guidewire DEVTrails 2026 | Phase 1 Submission**
 > Protecting the earnings of Zomato & Swiggy delivery partners against uncontrollable external disruptions.
@@ -255,7 +255,7 @@ The worker-facing UI will be mobile-first, lightweight, and Hindi/English biling
 
 ## 9. Development Plan
 
-### Phase 1 (Weeks 1–2) — Ideation & Foundation ✅
+### Phase 1 (Weeks 1–2) — Ideation & Foundation 
 - [x] Finalise persona: Food Delivery (Zomato/Swiggy)
 - [x] Define parametric triggers and weekly premium model
 - [x] Design application workflow
