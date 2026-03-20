@@ -1,5 +1,4 @@
-[README.md](https://github.com/user-attachments/files/26063817/README.md)
-# GigShield — AI-Powered Parametric Income Insurance for Food Delivery Partners
+# 🛵 GigShield — AI-Powered Parametric Income Insurance for Food Delivery Partners
 
 > **Guidewire DEVTrails 2026 | Phase 1 Submission**
 > Protecting the earnings of Zomato & Swiggy delivery partners against uncontrollable external disruptions.
@@ -14,9 +13,10 @@
 4. [Weekly Premium Model](#4-weekly-premium-model)
 5. [Parametric Triggers](#5-parametric-triggers)
 6. [AI/ML Integration Plan](#6-aiml-integration-plan)
-7. [Platform Choice: Web App](#7-platform-choice-web-app)
-8. [Tech Stack & Architecture](#8-tech-stack--architecture)
-9. [Development Plan](#9-development-plan)
+7. [🚨 Market Crash — Adversarial Defense & Anti-Spoofing Strategy](#7-market-crash--adversarial-defense--anti-spoofing-strategy)
+8. [Platform Choice: Web App](#8-platform-choice-web-app)
+9. [Tech Stack & Architecture](#9-tech-stack--architecture)
+10. [Development Plan](#10-development-plan)
 
 ---
 
@@ -186,7 +186,93 @@ These triggers are **objective, verifiable, and automatic** — no manual claim 
 
 ---
 
-## 7. Platform Choice: Web App
+## 7. 🚨 Market Crash — Adversarial Defense & Anti-Spoofing Strategy
+
+> **The Scenario:** 500 delivery partners. Fake GPS. Real payouts. A coordinated fraud ring exploits a parametric insurance platform by spoofing location data during a disruption event — draining the liquidity pool in hours. Simple GPS verification is dead. GigShield's response is a multi-layered adversarial defense system.
+
+### The Core Problem: Why GPS Alone Fails
+
+A single GPS coordinate is trivially spoofable. Fraud rings know this. They register fake workers, plant them inside a disruption zone on paper, and trigger mass claims during a weather event. The insurer pays out — and never knows.
+
+GigShield's answer is **triangulated behavioral trust** — no single signal decides a claim. A fraudster must defeat multiple independent systems simultaneously to succeed.
+
+---
+
+### Layer 1 — Behavioral Fingerprinting (Spotting the Faker)
+
+Real delivery workers have a **predictable behavioral signature** that fraudsters cannot easily replicate at scale:
+
+| Signal | Genuine Worker Pattern | Fraud Ring Pattern |
+|---|---|---|
+| GPS movement | Constant motion, stop-start delivery loops | Stationary or unnaturally smooth path |
+| Order activity log | Drop in orders correlating with disruption | Zero orders even before disruption hit |
+| App session data | Active on Zomato/Swiggy partner app | No platform app activity |
+| Battery & sensor data | Phone vibration/accelerometer shows movement | Flat/static sensor readings |
+| Historical zone presence | Worker regularly operates in claimed zone | First appearance in zone on claim day |
+
+**Implementation:** On every claim, we pull the worker's last 90 minutes of GPS trace. We run it through a movement classifier (trained on genuine delivery route patterns) that scores whether the trace is consistent with a real working delivery partner caught in a disruption — or someone sitting still with a spoofed location.
+
+---
+
+### Layer 2 — Peer Cohort Validation (Catching the Ring)
+
+A coordinated fraud ring will trigger claims in a cluster — same zone, same time, same event. GigShield detects this using **cohort anomaly detection**:
+
+- In any disruption event, we compute the **expected claim rate** for that zone based on historical data and active policy count.
+- If the actual claim surge exceeds **2.5× the expected rate**, a ring alert fires.
+- Claims from the surge zone are individually re-scored against the cohort: workers with no prior zone history, no platform activity, and static GPS are flagged.
+- The ring's own coordination becomes the evidence against them.
+
+> **Key insight:** A genuine mass disruption (real flood, real curfew) produces a gradual claim wave as workers log off one by one. A fraud ring produces a sudden synchronized spike. The timestamp distribution alone is a fraud signal.
+
+---
+
+### Layer 3 — Cross-Platform Activity Correlation
+
+Genuine workers on Zomato/Swiggy leave a verifiable digital trail during their working hours:
+
+- Order acceptance/rejection logs
+- Restaurant arrival pings
+- Customer delivery confirmations
+- In-app earnings entries
+
+GigShield's fraud engine checks whether the claiming worker has **any platform activity in the 2 hours before the disruption trigger**. A worker who hasn't accepted a single order all day but claims income loss is immediately flagged. A genuine worker will have platform logs proving they were actively working when the disruption hit.
+
+---
+
+### Layer 4 — Network Graph Analysis (Identifying Rings)
+
+Individual fraud checks can miss sophisticated rings who train each member to pass basic checks. Network analysis catches what individual scoring misses:
+
+- We build a **social graph** of claimants: shared device IDs, shared UPI accounts, shared registration IPs, or referral chains.
+- Clusters of workers who all registered within a short window, from the same IP, with the same referrer = ring signal.
+- A single fraudulent node in a network raises the fraud score of connected nodes automatically.
+
+---
+
+### The Decision Framework: Flagging Bad Actors Without Punishing Honest Ones
+
+| Fraud Score | Action | Worker Impact |
+|---|---|---|
+| 0.0 – 0.40 | Auto-approve | Instant payout. Zero friction. |
+| 0.41 – 0.65 | Soft hold (2 hrs) | Payout after brief secondary check. Worker notified. |
+| 0.66 – 0.80 | Human review queue | Claims analyst reviews within 4 hours. Worker notified with reason. |
+| 0.81 – 1.0 | Auto-reject + flag | Claim denied. Account flagged. Worker can appeal with evidence. |
+
+**Why this is fair:** Genuine workers in a real disruption zone score low across all layers — they have movement, platform activity, and zone history. They sail through instantly. The soft hold at 0.41–0.65 exists for edge cases: a new worker in an unfamiliar zone, or someone whose phone battery died mid-disruption. Only the 0.81+ band is auto-rejected, requiring multiple independent signals all pointing to fraud simultaneously.
+
+---
+
+### Anti-Gaming Design Principles
+
+- **No feedback loop:** Workers never see their fraud score or which signals triggered a review. A fraudster cannot tune their behavior to pass.
+- **Score drift:** Each suspicious claim slightly raises the baseline fraud sensitivity for that account — making repeated fraud progressively harder.
+- **Delayed ring alerts:** Ring detection runs on a 6-hour delay so genuine individual claims process instantly, while coordinated patterns only emerge after the event window.
+- **Appeal with evidence:** Any rejected claimant can submit platform screenshots or bank statements. Human review resolves within 24 hours. Genuine workers are never permanently blocked without evidence.
+
+---
+
+## 8. Platform Choice: Web App
 
 **Why Web over Mobile?**
 
@@ -201,7 +287,7 @@ The worker-facing UI will be mobile-first, lightweight, and Hindi/English biling
 
 ---
 
-## 8. Tech Stack & Architecture
+## 9. Tech Stack & Architecture
 
 ### Frontend
 - **React.js** (Vite) — Component-based, fast
@@ -253,9 +339,9 @@ The worker-facing UI will be mobile-first, lightweight, and Hindi/English biling
 
 ---
 
-## 9. Development Plan
+## 10. Development Plan
 
-### Phase 1 (Weeks 1–2) — Ideation & Foundation 
+### Phase 1 (Weeks 1–2) — Ideation & Foundation ✅
 - [x] Finalise persona: Food Delivery (Zomato/Swiggy)
 - [x] Define parametric triggers and weekly premium model
 - [x] Design application workflow
@@ -284,8 +370,11 @@ The worker-facing UI will be mobile-first, lightweight, and Hindi/English biling
 
 ## 👥 Team
 
-> *(Add your team member names and roles here)*
-
+SANNSKAR TIWARY
+NAMAN BANSAL
+KRISHNA PANDOH
+JAHNAWI TRIPATHI
+DEV VERMA
 ---
 
 ## 📎 Links
