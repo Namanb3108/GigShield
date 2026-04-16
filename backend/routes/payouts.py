@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from fastapi import APIRouter
+from typing import Optional
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -10,8 +11,8 @@ class PayoutRequest(BaseModel):
     claim_id: str
     worker_id: str
     amount: float
-    upi_id: str | None = "worker@upi"
-    trigger_type: str | None = "disruption"
+    upi_id: Optional[str] = "worker@upi"
+    trigger_type: Optional[str] = "disruption"
 
 
 MOCK_PAYOUTS = [

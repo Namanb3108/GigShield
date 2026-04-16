@@ -3,9 +3,10 @@ import threading
 import time
 import random
 from datetime import datetime
+from typing import Optional
 
 logger = logging.getLogger("gigshield.scheduler")
-_monitor_thread: threading.Thread | None = None
+_monitor_thread: Optional[threading.Thread] = None
 
 def _send_twilio_notification(worker_phone, amount, trigger_type, claim_id):
     logger.info(f"[TWILIO MOCK] Sent SMS to {worker_phone}:")

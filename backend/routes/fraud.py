@@ -1,6 +1,7 @@
 import random
 
 from fastapi import APIRouter
+from typing import Optional
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -12,10 +13,10 @@ class FraudCheckRequest(BaseModel):
     city: str
     zone: str
     trigger_type: str
-    worker_lat: float | None = None
-    worker_lon: float | None = None
-    claims_last_4_weeks: int | None = 0
-    policy_age_hours: int | None = 72
+    worker_lat: Optional[float] = None
+    worker_lon: Optional[float] = None
+    claims_last_4_weeks: Optional[int] = 0
+    policy_age_hours: Optional[int] = 72
 
 
 FRAUD_FLAGS = [
