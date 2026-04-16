@@ -379,8 +379,10 @@ DEV VERMA
 
 ## 📎 Links
 
-- https://github.com/Namanb3108/GigShield.git
-- https://drive.google.com/file/d/1cNmKyi0CGn1Z57Otyc2Uuw5r_uMv9n-h/view?usp=sharing
+- **Live Application:** [https://gig-shield-main-iota.vercel.app](https://gig-shield-main-iota.vercel.app)
+- **Backend API Docs:** [https://gigshield-backend-6bzb.onrender.com/docs](https://gigshield-backend-6bzb.onrender.com/docs)
+- **GitHub Repository:** [https://github.com/Namanb3108/GigShield](https://github.com/Namanb3108/GigShield)
+- **Strategy Video:** [Google Drive Link](https://drive.google.com/file/d/1cNmKyi0CGn1Z57Otyc2Uuw5r_uMv9n-h/view?usp=sharing)
 
 ---
 
