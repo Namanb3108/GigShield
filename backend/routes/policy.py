@@ -145,7 +145,38 @@ def create_policy(request: CreatePolicyRequest):
 def get_worker_policy(worker_id: str):
     policy = next((p for p in MOCK_POLICIES if p["worker_id"] == worker_id), None)
     if not policy:
-        return {"error": "No active policy found for this worker"}
+        # Auto-generate dynamic mock policy for the new worker
+        worker = None
+        try:
+            from routes.auth import MOCK_WORKERS
+            worker = next((w for w in MOCK_WORKERS if w["id"] == worker_id), None)
+        except Exception:
+            pass
+
+        plan_name = worker["plan"] if worker and "plan" in worker else "Standard"
+        plan = PLANS.get(plan_name, PLANS["Standard"])
+        
+        start_date = datetime.now()
+        renew_date = start_date + timedelta(days=7)
+
+        policy = {
+            "id": f"POL-{str(len(MOCK_POLICIES) + 1).zfill(3)}",
+            "worker_id": worker_id,
+            "worker_name": worker["name"] if worker else "Dynamic Worker",
+            "plan": plan_name,
+            "city": worker["city"] if worker else "Mumbai",
+            "zone": "Dynamic API Zone",
+            "platform": worker["platform"] if worker else "Gig Platform",
+            "weekly_premium": plan["weekly_premium"],
+            "max_payout": plan["max_payout"],
+            "status": "active",
+            "start_date": start_date.isoformat(),
+            "renewal_date": renew_date.isoformat(),
+            "total_paid_in": 0,
+            "total_paid_out": 0,
+            "claims_count": 0,
+        }
+        MOCK_POLICIES.append(policy)
 
     return {
         "success": True,

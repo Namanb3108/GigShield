@@ -5,6 +5,18 @@ from models.risk_profile import risk_profiler
 
 router = APIRouter()
 
+MOCK_WORKERS = [
+    {
+        "id": "W-001",
+        "name": "Ravi Kumar",
+        "phone": "9876543210",
+        "city": "Mumbai",
+        "platform": "Zomato",
+        "plan": "Standard",
+        "risk_tier": "Medium",
+    }
+]
+
 
 class WorkerLoginRequest(BaseModel):
     phone: str
@@ -44,18 +56,14 @@ def send_otp(request: WorkerLoginRequest):
 @router.post("/worker/verify-otp")
 def verify_otp(request: OTPVerifyRequest):
     if len(request.otp) == 4 and request.otp.isdigit():
+        worker = next((w for w in MOCK_WORKERS if w["phone"] == request.phone), None)
+        if not worker:
+            raise HTTPException(status_code=404, detail="Phone number not registered. Please create an account.")
+
         return {
             "success": True,
-            "token": "demo-jwt-token-worker-123",
-            "worker": {
-                "id": "W-001",
-                "name": "Ravi Kumar",
-                "phone": request.phone,
-                "city": "Mumbai",
-                "platform": "Zomato",
-                "plan": "Standard",
-                "risk_tier": "Medium",
-            },
+            "token": f"demo-jwt-{worker['id']}",
+            "worker": worker,
         }
     raise HTTPException(status_code=400, detail="Invalid OTP")
 
@@ -74,10 +82,25 @@ def register_worker(request: RegisterRequest):
         recommended_plan = "Premium"
     elif "Less" in request.hours or "20" in request.hours and "40" not in request.hours:
         recommended_plan = "Basic"
+
+    worker_id = f"W-{random.randint(100, 999)}"
+    
+    # Store new worker in memory
+    new_worker = {
+        "id": worker_id,
+        "name": request.name.strip(),
+        "phone": request.phone,
+        "city": request.city,
+        "platform": request.platform,
+        "plan": recommended_plan,
+        "risk_tier": risk_tier,
+    }
+    MOCK_WORKERS.append(new_worker)
+
     return {
         "success": True,
         "message": "Worker registered successfully",
-        "worker_id": f"W-{random.randint(100, 999)}",
+        "worker_id": worker_id,
         "risk_tier": risk_tier,
         "recommended_plan": recommended_plan,
     }
