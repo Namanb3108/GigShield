@@ -44,8 +44,36 @@ class RegisterRequest(BaseModel):
 
 @router.post("/worker/send-otp")
 def send_otp(request: WorkerLoginRequest):
+    import urllib.request
+    import urllib.parse
+    import json
+    import os
+
     otp = str(random.randint(1000, 9999))
     print(f"OTP for {request.phone}: {otp}")
+
+    # Fast2SMS Integration
+    # Extracted from user's screenshot. Uses env var as backup.
+    api_key = os.getenv("FAST2SMS_API_KEY", "elZOLRAOq7vBPHbjNr0nQ4pyDXl3iG8ChMwJxYVE9sm")
+    phone_digits = "".join(filter(str.isdigit, request.phone))[-10:]
+
+    url = "https://www.fast2sms.com/dev/bulkV2"
+    params = {
+        "authorization": api_key,
+        "variables_values": otp,
+        "route": "otp",
+        "numbers": phone_digits
+    }
+    querystring = urllib.parse.urlencode(params)
+    req = urllib.request.Request(f"{url}?{querystring}", headers={'cache-control': "no-cache"})
+
+    try:
+        with urllib.request.urlopen(req) as response:
+            res_data = json.loads(response.read().decode())
+            print(f"Fast2SMS Response: {res_data}")
+    except Exception as e:
+        print(f"Fast2SMS SMS Delivery Failed: {e}")
+
     return {
         "success": True,
         "message": f"OTP sent to {request.phone}",
