@@ -51,15 +51,20 @@ export default function Navbar({ variant = 'dark' }) {
 
         {/* Nav Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
-          {['Product', 'How it Works', 'Pricing', 'About'].map(link => (
-            <span key={link} style={{
+          {[
+            { label: 'Product', id: 'product' },
+            { label: 'How it Works', id: 'how-it-works' },
+            { label: 'Pricing', id: 'pricing' }
+          ].map(link => (
+            <span key={link.label} style={{
               fontSize: 14, fontWeight: 500,
               color: isDark ? 'rgba(255,255,255,0.7)' : 'var(--gray-500)',
               cursor: 'pointer', transition: 'color 0.2s',
             }}
+              onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })}
               onMouseEnter={e => e.target.style.color = isDark ? '#fff' : '#111827'}
               onMouseLeave={e => e.target.style.color = isDark ? 'rgba(255,255,255,0.7)' : 'var(--gray-500)'}
-            >{link}</span>
+            >{link.label}</span>
           ))}
         </div>
 

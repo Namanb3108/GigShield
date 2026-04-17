@@ -42,7 +42,7 @@ export default function Landing() {
       <Navbar variant="dark" />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section style={{
+      <section id="product" style={{
         background: 'linear-gradient(160deg, #0F2340 0%, #1A3557 60%, #0F2340 100%)',
         minHeight: '100vh', position: 'relative', overflow: 'hidden',
         display: 'flex', alignItems: 'center', paddingTop: 100,
@@ -267,7 +267,7 @@ export default function Landing() {
       </section>
 
       {/* ── PRICING ─────────────────────────────────────────────────────── */}
-      <section style={{ padding: '100px 0', background: '#fff' }}>
+      <section id="pricing" style={{ padding: '100px 0', background: '#fff' }}>
         <div className="container">
           <ScrollReveal>
             <div style={{ textAlign: 'center', marginBottom: 64 }}>
