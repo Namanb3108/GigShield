@@ -197,33 +197,25 @@ export default function Login() {
           </div>
 
           <h1 style={{ fontFamily: 'Fraunces, serif', fontSize: 42, lineHeight: 1.1, marginBottom: 18 }}>
-            Onboard like a product,
+            Your earnings,
             <br />
-            not a mockup.
+            always protected.
           </h1>
           <p style={{ fontSize: 15, lineHeight: 1.8, color: 'rgba(255,255,255,0.72)', maxWidth: 430, marginBottom: 34 }}>
-            OTP login, worker registration, AI premium pricing, and insurer sign-in all connect to the FastAPI backend so the experience feels alive from the first screen.
+            Parametric income insurance for Zomato and Swiggy delivery partners. Triggers automatically, pays instantly.
           </p>
 
           {[
-            'Worker OTP and registration through /api/auth',
-            'AI premium pricing through /api/policy/premium-estimate',
-            '7 disruption inclusions and 9 exclusions in policy view',
-            'Admin route ready for live claims, fraud, and payouts',
+            'Auto payout — no claim forms',
+            '5 disruption triggers monitored 24×7',
+            'UPI credit within 3 minutes',
+            'AI-powered fraud protection',
           ].map((item) => (
             <div key={item} style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 14 }}>
               <div style={{ width: 30, height: 30, borderRadius: 8, background: 'rgba(232,88,26,0.16)', display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 800 }}>
                 OK
               </div>
               <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.74)' }}>{item}</div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
-          {['Auto payout', 'Fraud guardrail', 'Worker-first UX'].map((badge) => (
-            <div key={badge} style={{ border: '1px solid rgba(255,255,255,0.16)', borderRadius: 999, padding: '8px 12px', fontSize: 12, color: 'rgba(255,255,255,0.72)' }}>
-              {badge}
             </div>
           ))}
         </div>
