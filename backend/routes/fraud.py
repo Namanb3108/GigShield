@@ -95,18 +95,20 @@ def run_fraud_check(request: FraudCheckRequest):
 
 @router.get("/flags")
 def get_fraud_flags():
+    pending = [f for f in FRAUD_FLAGS if f.get("status") == "pending_review"]
     return {
         "total_flags": len(FRAUD_FLAGS),
-        "pending": len([f for f in FRAUD_FLAGS if f["status"] == "pending_review"]),
-        "flags": FRAUD_FLAGS,
+        "pending": len(pending),
+        "flags": pending,
     }
-
 
 @router.put("/flags/{flag_id}/resolve")
 def resolve_fraud_flag(flag_id: str, action: str):
     flag = next((f for f in FRAUD_FLAGS if f["id"] == flag_id), None)
     if not flag:
         return {"error": f"Flag {flag_id} not found"}
+
+    flag["status"] = "resolved"
 
     return {
         "success": True,
