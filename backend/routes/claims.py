@@ -77,15 +77,20 @@ def initiate_claim(request: ClaimRequest):
     claim = {
         "id": claim_id,
         "worker_id": request.worker_id,
+        "worker_name": "Demo Worker",
         "city": request.city,
         "zone": request.zone,
         "trigger_type": request.trigger_type,
         "trigger_reading": request.trigger_reading,
+        "amount": payout,
         "estimated_payout": payout,
         "status": "initiated",
+        "fraud_score": 0.0,
         "created_at": datetime.now().isoformat(),
         "next_step": "fraud_check",
     }
+
+    MOCK_CLAIMS.insert(0, claim)
 
     return {
         "success": True,
@@ -138,6 +143,11 @@ def update_claim_status(request: ClaimUpdateRequest):
 
 @router.post("/auto-process/{claim_id}")
 def auto_process_claim(claim_id: str):
+    claim = next((c for c in MOCK_CLAIMS if c["id"] == claim_id), None)
+    if claim:
+        claim["status"] = "paid"
+        claim["paid_at"] = datetime.now().isoformat()
+
     return {
         "success": True,
         "claim_id": claim_id,

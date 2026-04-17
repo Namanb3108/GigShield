@@ -78,6 +78,8 @@ def process_payout(request: PayoutRequest):
         "message": f"₹{request.amount} credited to {request.upi_id}",
     }
 
+    MOCK_PAYOUTS.insert(0, payout)
+
     trigger_name = request.trigger_type.replace('_', ' ').title() if request.trigger_type else "Disruption"
     return {
         "success": True,
