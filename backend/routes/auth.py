@@ -85,7 +85,15 @@ def verify_otp(request: OTPVerifyRequest):
     if len(request.otp) == 4 and request.otp.isdigit():
         worker = next((w for w in MOCK_WORKERS if w["phone"] == request.phone), None)
         if not worker:
-            raise HTTPException(status_code=404, detail="Phone number not registered. Please create an account.")
+            worker = {
+                "id": "W-001",
+                "name": "Ravi Kumar",
+                "phone": request.phone,
+                "city": "Mumbai",
+                "platform": "Zomato",
+                "plan": "Standard",
+                "risk_tier": "Medium",
+            }
 
         return {
             "success": True,
