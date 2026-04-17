@@ -53,8 +53,7 @@ def send_otp(request: WorkerLoginRequest):
     print(f"OTP for {request.phone}: {otp}")
 
     # Fast2SMS Integration
-    # Extracted from user's screenshot. Uses env var as backup.
-    api_key = os.getenv("FAST2SMS_API_KEY", "elZOLRAOq7vBPHbjNr0nQ4pyDXl3iG8ChMwJxYVE9sm")
+    api_key = os.getenv("FAST2SMS_API_KEY", "elZoLRAOq7vBPHbjNr0nQ4pyDXI3iG8ChMwJxYVE9smW1fkzKUz5bDKV1QkoPphqIWsYnTZwacOrFguv")
     phone_digits = "".join(filter(str.isdigit, request.phone))[-10:]
 
     url = "https://www.fast2sms.com/dev/bulkV2"
